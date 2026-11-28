@@ -12,7 +12,7 @@
     <h3>{{ card_proj.title }}</h3>
     <p>{{ card_proj.summary }}</p>
     {%- if card_proj.meta and card_proj.meta != "" %}<div class="meta">{{ card_proj.meta }}</div>{% endif %}
-    {%- if body != "" %}<span class="more">Project details →</span>{% endif %}
+    {%- if body != "" %}<span class="more">{% if card_proj.research == true %}More Info →{% else %}Project details →{% endif %}</span>{% endif %}
   </div>
 {%- if body != "" %}
 </a>
