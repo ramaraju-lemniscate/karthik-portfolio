@@ -9,10 +9,10 @@ layout: default
 {%- else -%}
 <nav class="topnav subnav" aria-label="Project">
   <div class="wrap">
-    <a class="back" href="{{ '/#projects' | relative_url }}">← All projects</a>
-    {%- if page.report and page.report != "" %}
-    <a class="outline-btn" href="{{ page.report | relative_url }}" target="_blank" rel="noopener">Full report (PDF)</a>
-    {%- endif %}
+    <a class="nav-btn back" href="{{ '/' | relative_url }}{% if page.research == true %}#research{% else %}#projects{% endif %}">← Back</a>
+    <span class="nav-right">
+    <a class="nav-btn" href="{{ '/' | relative_url }}">Home</a>
+    </span>
   </div>
 </nav>
 
@@ -40,12 +40,22 @@ layout: default
   </article>
 
   <footer class="p-foot">
-    <a href="{{ '/#projects' | relative_url }}" style="color:var(--ink)">← Back to all projects</a>
-    {%- if page.report and page.report != "" %}
-    <a href="{{ page.report | relative_url }}" target="_blank" rel="noopener">Full report (PDF) ↗</a>
-    {%- endif %}
+    <a class="nav-btn back" href="{{ '/' | relative_url }}{% if page.research == true %}#research{% else %}#projects{% endif %}">← Back</a>
+    <span class="nav-right">
+    <a class="nav-btn" href="{{ '/' | relative_url }}">Home</a>
+    </span>
   </footer>
 </main>
+<script>
+  // "Back" returns to the page the visitor came from (the card they clicked); otherwise it goes to the project list.
+  document.querySelectorAll('a.back').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      try {
+        if (document.referrer && new URL(document.referrer).origin === location.origin && history.length > 1) { e.preventDefault(); history.back(); }
+      } catch (err) {}
+    });
+  });
+</script>
 <script>
   // Puts each figure beside the paragraph(s) that introduce it. In the Markdown, add {: .wide} after an image to show
   // it larger below its text, {: .big} to keep it beside the text but larger, or {: .pair} on two consecutive images to put them
